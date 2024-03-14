@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Schedule</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Schedule for {{ student.studentName }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th>Lecturer</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Venue</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+            <tr>
+                <td>{{ schedule.module.moduleName }}</td>
+                <td>{{ schedule.lecturer.lecturerName }}</td>
+                <td>{{ schedule.startDateTime }}</td>
+                <td>{{ schedule.endDateTime }}</td>
+                <td>{{ schedule.venueName }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No schedules found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

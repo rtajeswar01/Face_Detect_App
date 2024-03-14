@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href = "{% url 'lec_register' %}">Create Lecturer Account</a></li>
+                <li><a href = "{% url 'lecturer_list' %}">View Lecturer List</a></li>
+                <li><a href = "{% url 'module_register' %}">Create Modules</a></li>
+                <li><a href = "{% url 'module_list' %}">View Module List</a></li>
+                <li><a href = "{% url 'student_register' %}">Register Student</a></li>
+                <li><a href = "{% url 'student_list' %}">View Student List</a></li>
+                <li><a href = "{% url 'schedule_register' %}">Register Schedule</a></li>
+                <li><a href = "{% url 'schedule_list' %}">View Schedules List</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href = "{% url 'logout_view' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <h2>Dashboard Content</h2>
+        <p>Welcome to your dashboard</p>
+    </main>
+
+    <footer>
+
+        <p>&copy; 2023 Taylor's University. All rights reserved.</p>
+    </footer>
+</body>
+</html>

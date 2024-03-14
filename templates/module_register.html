@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module Registration</title>
+</head>
+<body>
+    <h1>Module Registration</h1>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="post" action="{% url 'module_register' %}">
+        {% csrf_token %}
+        <label for="moduleName">Module Name:</label>
+        <input type="text" id="moduleName" name="moduleName" required><br><br>
+        <label for="moduleCode">Module Code:</label>
+        <input type="text" id="moduleCode" name="moduleCode" required><br><br>
+        <label for="lecturerID">Lecturer:</label>
+        <select id="lecturerID" name="lecturerID">
+            <option value="" disabled selected>Select a lecturer</option>
+            {% for lecturer in lecturers %}
+                <option value="{{ lecturer.lecturerID }}">{{ lecturer.lecturerName }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>

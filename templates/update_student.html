@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student</title>
+</head>
+<body>
+    <style>
+        #availableModules { display: none; }
+    </style>
+    <h1>Update Student</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="studentName">Name:</label>
+        <input type="text" id="studentName" name="studentName" value="{{ student.studentName }}" required><br><br>
+        <label for="studentNumber">Student Number:</label>
+        <input type="text" id="studentNumber" name="studentNumber" value="{{ student.studentNumber }}" required><br><br>
+        <label for="studentEmail">Email:</label>
+        <input type="email" id="studentEmail" name="studentEmail" value="{{ student.studentEmail }}" required><br><br>
+
+        <label>Current Face Image:</label>
+        <br>
+        <img id="currentImage" src="{{ student.studentFace.url }}" alt="{{ student.studentName }} Face" class="student-image" style="width: 200px; height: auto;">
+
+        <br><br>
+        <label for="newStudentFace">Change Face Image:</label>
+        <input type="file" id="newStudentFace" name="studentFace" accept="image/*">
+
+        <br><br>
+        <label>Registered Modules:</label>
+        <ul>
+            {% for module in student.modules.all %}
+                <li>{{ module.moduleName }}</li>
+            {% endfor %}
+        </ul>
+        <button type="button" id="addModulesBtn">Add Modules</button>
+
+        <div id="availableModules">
+            <label for="modules">Available Modules:</label>
+            <select id="modules" name="modules" multiple style="width: 100%; height: 150px;">
+                {% for module in modules %}
+                    {% if module.moduleID not in selected_module_ids %}
+                        <option value="{{ module.moduleID }}">{{ module.moduleName }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <br><br>
+        <label>Delete Registered Modules:</label>
+        <ul>
+            {% for module in student.modules.all %}
+                <li>
+                    {{ module.moduleName }}
+                    <input type="checkbox" name="modulesToRemove" value="{{ module.moduleID }}">
+                </li>
+            {% endfor %}
+        </ul>
+
+
+        <br><br>
+        <input type="submit" value="Update">
+    </form>
+
+    <a href="{% url 'student_list' %}">Cancel</a>
+
+    <script>
+        const currentImage = document.getElementById('currentImage');
+        const newStudentFaceInput = document.getElementById('newStudentFace');
+
+        newStudentFaceInput.addEventListener('change', function () {
+            const file = this.files[0];
+
+            if (file) {
+                const imageURL = URL.createObjectURL(file);
+                currentImage.src = imageURL;
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('addModulesBtn').addEventListener('click', function() {
+            document.getElementById('availableModules').style.display = 'block';
+            this.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
+

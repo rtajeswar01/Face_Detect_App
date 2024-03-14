@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Lecturer</title>
+</head>
+<body>
+    <h1>Update Lecturer</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="lecturerNumber">Lecturer ID:</label>
+        <input type="text" id="lecturerNumber" name="lecturerNumber" value="{{ lecturer_instance.lecturerNumber }}" required><br><br>
+        <label for="lecturerName">Lecturer Name:</label>
+        <input type="text" id="lecturerName" name="lecturerName" value="{{ lecturer_instance.lecturerName }}" required><br><br>
+        <label for="lecturerEmail">Email:</label>
+        <input type="email" id="lecturerEmail" name="lecturerEmail" value="{{ lecturer_instance.lecturerEmail }}" required><br><br>
+        <label for="lecturerPassword">New Password:</label>
+        <input type="password" id="lecturerPassword" name="lecturerPassword"><br><br>
+        <input type="submit" value="Update">
+    </form>
+
+    <a href="{% url 'lecturer_list' %}">Cancel</a>
+</body>
+</html>

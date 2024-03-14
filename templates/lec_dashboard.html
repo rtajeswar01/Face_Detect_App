@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ lecturer_name }}</h1> 
+    <h2>Class Dashboard</h2>
+    {% if schedule %}
+        <div>
+            Module: {{ schedule.module.moduleName }}<br>
+            Start Time: {{ schedule.startDateTime }}<br>
+            End Time: {{ schedule.endDateTime }}<br>
+            Venue: {{ schedule.venueName }}
+        </div>
+    {% else %}
+        <div>
+            <p>No class is active.</p>
+        </div>
+    {% endif %}
+</body>
+</html>

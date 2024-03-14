@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Student</title>
+</head>
+<body>
+    <h1>Delete Student</h1>
+    
+    <div>
+        <img src="{{ student.studentFace.url }}" alt="{{ student.studentName }}" width="150">
+    </div>
+    
+    <p>Student Name: {{ student.studentName }}</p>
+    <p>Student Number: {{ student.studentNumber }}</p>
+    <p>Student Email: {{ student.studentEmail }}</p>
+    <p>Module: {{ student.module.moduleName }}</p>
+
+    <p>Are you sure you want to delete the student "{{ student.studentName }}"?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+    
+    <a href="{% url 'student_list' %}">Cancel</a>
+</body>
+</html>

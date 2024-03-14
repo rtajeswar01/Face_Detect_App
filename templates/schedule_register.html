@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule Registration</title>
+</head>
+<body>
+    <h1>Schedule Registration</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Dropdown for selecting a Module -->
+        <label for="module_id">Select Module:</label>
+        <select name="module_id" id="module_id" required>
+            <option value="" disabled selected>Select a Module</option>
+            {% for module in modules %}
+                <option value="{{ module.moduleID }}">{{ module.moduleName }}</option>
+            {% endfor %}
+        </select><br>
+        
+        <!-- Dropdown for selecting a Lecturer -->
+        <label for="lecturer_id">Select Lecturer:</label>
+        <select name="lecturer_id" id="lecturer_id" required>
+            <option value="" disabled selected>Select a Lecturer</option>
+            {% for lecturer in lecturers %}
+                <option value="{{ lecturer.lecturerID }}">{{ lecturer.lecturerName }}</option>
+            {% endfor %}
+        </select><br>
+        
+        <!-- Other form fields -->
+        <label for="start_datetime">Start Date and Time:</label>
+        <input type="datetime-local" name="start_datetime" required><br>
+        <label for="end_datetime">End Date and Time:</label>
+        <input type="datetime-local" name="end_datetime" required><br>
+        <label for="venue_name">Venue Name:</label>
+        <input type="text" name="venue_name" required><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .edit-button,
+        .delete-button {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lecturer List</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <table>
+        <thead>
+            <tr>
+                <th>Lecturer Number</th>
+                <th>Lecturer Name</th>
+                <th>Lecturer Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lecturer in lecturers %}
+                <tr>
+                    <td>{{ lecturer.lecturerNumber }}</td>
+                    <td>{{ lecturer.lecturerName }}</td>
+                    <td>{{ lecturer.lecturerEmail }}</td>
+                    <td>
+                        <a href="{% url 'update_lecturer' lecturer.lecturerID %}">Update</a>
+                        <a href="{% url 'delete_lecturer' lecturer.lecturerID %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+    </table>

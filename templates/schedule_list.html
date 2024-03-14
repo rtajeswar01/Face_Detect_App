@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule List</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        function filterSchedules() {
+            const selectedModuleId = document.getElementById('module_id').value;
+            const scheduleRows = document.querySelectorAll('.schedule-row');
+            
+            scheduleRows.forEach((row) => {
+                const moduleId = row.getAttribute('data-module-id');
+                if (selectedModuleId === '' || selectedModuleId === 'all' || selectedModuleId === moduleId) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            const table = document.querySelector('table');
+            table.style.display = selectedModuleId === '' ? 'none' : 'table';
+        }
+    </script>
+</head>
+<body>
+    <h1>Schedule List</h1>
+    
+    <label for="module_id">Select Module:</label>
+    <select id="module_id" onchange="filterSchedules()">
+        <option value="">Select a module</option> 
+        <option value="all">All Modules</option> 
+        {% for module in modules %}
+            <option value="{{ module.moduleID }}">{{ module.moduleName }}</option>
+        {% endfor %}
+    </select>
+    
+    <table style="display: none;">
+        <thead>
+            <tr>
+                <th>Module</th>
+                <th>Lecturer</th>
+                <th>Start Date and Time</th>
+                <th>End Date and Time</th>
+                <th>Venue</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+                <tr class="schedule-row" data-module-id="{{ schedule.module.moduleID }}">
+                    <td>{{ schedule.module.moduleName }}</td>
+                    <td>{{ schedule.lecturer.lecturerName }}</td>
+                    <td>{{ schedule.startDateTime }}</td>
+                    <td>{{ schedule.endDateTime }}</td>
+                    <td>{{ schedule.venueName }}</td>
+                    <td><a href="{% url 'update_schedule' schedule.scheduleID %}">Update</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

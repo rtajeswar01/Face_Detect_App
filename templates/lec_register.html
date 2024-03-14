@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer Registration</title>
+</head>
+<body>
+    <h1>Lecturer Registration</h1>
+    
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <form method="post" action="{% url 'lec_register' %}">
+        {% csrf_token %}
+        <label for="lecturerNumber">Lecturer ID:</label>
+        <input type="text" id="lecturerNumber" name="lecturerNumber" required><br><br>
+        <label for="lecturerName">Lecturer Name:</label>
+        <input type="text" id="lecturerName" name="lecturerName" required><br><br>
+        <label for="lecturerEmail">Email:</label>
+        <input type="email" id="lecturerEmail" name="lecturerEmail" required><br><br>
+        <label for="lecturerPassword">Password:</label>
+        <input type="password" id="lecturerPassword" name="lecturerPassword" required><br><br>
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>

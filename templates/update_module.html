@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Module</title>
+</head>
+<body>
+    <h1>Update Module</h1>
+    <form method="post" action="{% url 'update_module' module.moduleID %}">
+        {% csrf_token %}
+        <label for="moduleName">Module Name:</label>
+        <input type="text" id="moduleName" name="moduleName" value="{{ module.moduleName }}" required><br><br>
+        <label for="moduleCode">Module Code:</label>
+        <input type="text" id="moduleCode" name="moduleCode" value="{{ module.moduleCode }}" required><br><br>
+
+        <label for="lecturer">Lecturer:</label>
+        <select id="lecturer" name="lecturer">
+            {% for lecturer_option in lecturers %}
+                <option value="{{ lecturer_option.lecturerID }}"
+                    {% if lecturer_option.lecturerID == module.lecturer.lecturerID %}selected{% endif %}>
+                    {{ lecturer_option.lecturerName }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>

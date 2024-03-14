@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Schedule</title>
+</head>
+<body>
+    <h1>Update Schedule</h1>
+    
+    <form action="{% url 'update_schedule' schedule.scheduleID %}" method="post">
+        {% csrf_token %}
+        
+        <label for="module_id">Module:</label>
+        <select id="module_id" name="module_id" required>
+            {% for module in modules %}
+                <option value="{{ module.moduleID }}" {% if schedule.module.moduleID == module.moduleID %} selected {% endif %}>{{ module.moduleName }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="lecturer_id">Lecturer:</label>
+        <select id="lecturer_id" name="lecturer_id" required>
+            {% for lecturer in lecturers %}
+                <option value="{{ lecturer.lecturerID }}" {% if schedule.lecturer.lecturerID == lecturer.lecturerID %} selected {% endif %}>{{ lecturer.lecturerName }}</option>
+            {% endfor %}
+        </select>
+        
+        <label for="start_datetime">Start Date and Time:</label>
+        <input type="datetime-local" id="start_datetime" name="start_datetime" value="{{ schedule.startDateTime|date:"Y-m-d\TH:i" }}" required>
+        
+        <label for="end_datetime">End Date and Time:</label>
+        <input type="datetime-local" id="end_datetime" name="end_datetime" value="{{ schedule.endDateTime|date:"Y-m-d\TH:i" }}" required>
+        
+        <label for="venue_name">Venue:</label>
+        <input type="text" id="venue_name" name="venue_name" value="{{ schedule.venueName }}" required>
+        
+        <input type="submit" value="Update Schedule">
+    </form>
+</body>
+</html>

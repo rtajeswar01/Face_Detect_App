@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Student</title>
+    <style>
+        .student-details {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .student-face {
+            max-width: 150px;
+            max-height: 150px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="student-details">
+        <h1>Student Details</h1>
+
+        <img src="{{ student.studentFace.url }}" alt="{{ student.studentName }} Face" class="student-face">
+        <h2>{{ student.studentName }}</h2>
+        
+        <p><strong>Student Number:</strong> {{ student.studentNumber }}</p>
+        <p><strong>Student Email:</strong> {{ student.studentEmail }}</p>
+        
+        <h2>Registered Modules:</h2>
+        <ul>
+            {% for module in student.modules.all %}
+                <li>{{ module.moduleName }}</li>
+            {% endfor %}
+        </ul>
+        
+        <h2>View Schedule:</h2>
+        <a href="{% url 'view_schedule' student.studentID %}" class="button">View Schedule</a>
+    </div>
+</body>
+</html>
